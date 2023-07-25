@@ -1,5 +1,5 @@
 <template>
-    <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered>
+    <q-drawer show-if-above v-model="rightDrawerOpen" side="right" bordered>
         <div class="q-pa-md" style="max-width: 350px">
             <q-list bordered separator>
                 <q-item clickable v-ripple>
@@ -28,14 +28,14 @@
 import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
-    name: 'LeftDrawer',
+    name: 'RightDrawer',
     setup() {
-        const leftDrawerOpen = ref(false);
+        const rightDrawerOpen = ref(false);
 
         return {
-            leftDrawerOpen,
+            rightDrawerOpen,
             toggleLeftDrawer() {
-                leftDrawerOpen.value = !leftDrawerOpen.value;
+                rightDrawerOpen.value = !rightDrawerOpen.value;
             },
         };
     },
