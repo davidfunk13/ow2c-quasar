@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
 import LeftDrawer from 'components/LeftDrawer/LeftDrawer.vue';
 import RightDrawer from 'components/RightDrawer/RightDrawer.vue';
 import AppHeader from 'components/AppHeader/AppHeader.vue';
@@ -25,13 +25,7 @@ export default defineComponent({
     RightDrawer,
   },
   setup() {
-    const leftDrawerOpen = ref(false);
-
     return {
-      leftDrawerOpen,
-      toggleLeftDrawer() {
-        leftDrawerOpen.value = !leftDrawerOpen.value;
-      },
     };
   },
 });

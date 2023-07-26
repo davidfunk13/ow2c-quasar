@@ -25,18 +25,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
+import { useUIStore } from 'src/stores/ui-store';
+import { storeToRefs } from 'pinia';
+
+const uiStore = useUIStore();
+const { rightDrawerOpen } = storeToRefs(uiStore);
 
 export default defineComponent({
     name: 'RightDrawer',
     setup() {
-        const rightDrawerOpen = ref(false);
-
         return {
             rightDrawerOpen,
-            toggleLeftDrawer() {
-                rightDrawerOpen.value = !rightDrawerOpen.value;
-            },
         };
     },
 });

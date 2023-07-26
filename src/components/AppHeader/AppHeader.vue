@@ -1,7 +1,7 @@
 <template>
     <q-header elevated class="bg-primary text-white" height-hint="98">
         <q-toolbar>
-            <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
+            <q-btn dense flat round icon="menu" @click="leftDrawerOpen ? closeLeftDrawer() : openLeftDrawer()" />
 
             <q-toolbar-title>
                 <q-avatar>
@@ -10,7 +10,7 @@
                 Title
             </q-toolbar-title>
 
-            <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
+            <q-btn dense flat round icon="menu" @click="rightDrawerOpen ? closeRightDrawer() : openRightDrawer()" />
         </q-toolbar>
 
         <q-tabs align="left">
@@ -23,19 +23,30 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
+import { useUIStore } from 'src/stores/ui-store';
+import { storeToRefs } from 'pinia';
 
-const leftDrawerOpen = ref(false);
+const uiStore = useUIStore();
+
+const {
+    closeRightDrawer,
+    openRightDrawer,
+    closeLeftDrawer,
+    openLeftDrawer,
+} = uiStore;
+
+const { leftDrawerOpen, rightDrawerOpen } = storeToRefs(uiStore);
 
 export default defineComponent({
     name: 'AppHeader',
     setup() {
-        const rightDrawerOpen = ref(false);
-
         return {
+            closeLeftDrawer,
+            openLeftDrawer,
+            leftDrawerOpen,
+            closeRightDrawer,
+            openRightDrawer,
             rightDrawerOpen,
-            toggleLeftDrawer() {
-                leftDrawerOpen.value = !leftDrawerOpen.value;
-            },
         };
     },
 });

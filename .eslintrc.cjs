@@ -76,7 +76,14 @@ module.exports = {
     indent: 'off',
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': 'error',
-
+    'max-len': [
+      'error', {
+        code: 150,
+        ignoreUrls: true,
+        ignoreStrings: true,
+        ignoreTemplateLiterals: true,
+      },
+    ],
     'import/first': 'off',
     'import/named': 'error',
     'import/namespace': 'error',
