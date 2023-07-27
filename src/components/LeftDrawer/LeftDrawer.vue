@@ -31,7 +31,7 @@ import { storeToRefs } from 'pinia';
 
 const uiStore = useUIStore();
 const { leftDrawerOpen } = storeToRefs(uiStore);
-
+console.log(process.env);
 export default defineComponent({
     name: 'LeftDrawer',
     setup() {

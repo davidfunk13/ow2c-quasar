@@ -11,11 +11,12 @@
             </q-toolbar-title>
 
             <q-btn dense flat round icon="menu" @click="rightDrawerOpen ? closeRightDrawer() : openRightDrawer()" />
+            <AuthButton />
         </q-toolbar>
 
         <q-tabs align="left">
-            <q-route-tab to="/page1" label="Page One" />
-            <q-route-tab to="/page2" label="Page Two" />
+            <q-route-tab to="/" label="Dashboard" />
+            <q-route-tab to="/callback" label="Callback" />
             <q-route-tab to="/page3" label="Page Three" />
         </q-tabs>
     </q-header>
@@ -25,6 +26,7 @@
 import { defineComponent, ref } from 'vue';
 import { useUIStore } from 'src/stores/ui-store';
 import { storeToRefs } from 'pinia';
+import AuthButton from '../AuthButton/AuthButton.vue';
 
 const uiStore = useUIStore();
 
@@ -36,7 +38,6 @@ const {
 } = uiStore;
 
 const { leftDrawerOpen, rightDrawerOpen } = storeToRefs(uiStore);
-
 export default defineComponent({
     name: 'AppHeader',
     setup() {
@@ -49,6 +50,7 @@ export default defineComponent({
             rightDrawerOpen,
         };
     },
+    components: { AuthButton },
 });
 
 </script>

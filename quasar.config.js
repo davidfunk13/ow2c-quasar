@@ -13,8 +13,9 @@
 
 const { configure } = require('quasar/wrappers');
 const path = require('path');
+require('dotenv').config();
 
-module.exports = configure((/* ctx */) => ({
+module.exports = configure((ctx) => ({
   eslint: {
     // fix: true,
     // include: [],
@@ -60,6 +61,12 @@ module.exports = configure((/* ctx */) => ({
       browser: ['es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1'],
       node: 'node16',
     },
+    env: {
+      API: ctx.dev ? 'http://localhost:3001' : 'http://localhost:3001',
+      CLIENT_ID: process.env.CLIENT_ID,
+      AUTH_SCOPE: process.env.AUTH_SCOPE,
+      AUTH_URI: process.env.AUTH_URI,
+    },
 
     vueRouterMode: 'hash', // available values: 'hash', 'history'
     // vueRouterBase,
@@ -104,7 +111,11 @@ module.exports = configure((/* ctx */) => ({
 
   // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework
   framework: {
-    config: {},
+    config: {
+      loading: {
+        spinner: 'QSpinnerGears',
+      },
+    },
 
     // iconSet: 'material-icons', // Quasar icon set
     // lang: 'en-US', // Quasar language pack
@@ -117,7 +128,9 @@ module.exports = configure((/* ctx */) => ({
     // directives: [],
 
     // Quasar plugins
-    plugins: [],
+    plugins: [
+      'Loading',
+    ],
   },
 
   // animations: 'all', // --- includes all animations
