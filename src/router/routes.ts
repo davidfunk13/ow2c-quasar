@@ -3,6 +3,10 @@ import { RouteRecordRaw } from 'vue-router';
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
+    component: () => import('layouts/LoginLayout.vue'),
+  },
+  {
+    path: '/dashboard',
     component: () => import('layouts/MainLayout.vue'),
     children: [{
       path: '',
@@ -11,8 +15,8 @@ const routes: RouteRecordRaw[] = [
 
   },
   {
-    path: '/callback',
-    component: () => import('pages/CallbackPage.vue'),
+    path: '/authorize',
+    component: () => import('pages/AuthorizePage.vue'),
   },
   // {
   //   path: '/login',

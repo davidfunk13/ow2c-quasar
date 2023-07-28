@@ -1,29 +1,30 @@
 <template>
     <div></div>
-    <!-- <q-page class="login-page">
-        <q-card class="login-card">
-            <q-card-section>
-                <div class="text-h6">Login</div>
-            </q-card-section>
 
-            <q-card-section>
-                <q-input outlined v-model="username" label="Username" />
-                <q-input outlined v-model="password" label="Password" type="password" />
-
-                <q-btn color="primary" @click="login" label="Login" class="q-mt-md" />
-            </q-card-section>
-        </q-card>
-    </q-page> -->
+    <q-layout>
+        <q-page-container>
+            <q-page class="login-page">
+                <q-card class="login-card">
+                    <q-card-section>
+                        <div class="text-h4">Login, bitch.</div>
+                        <div class="text-h7">you won't. (__)(__)======D ~ ~ ~ ~~ </div>
+                        <AuthButton />
+                    </q-card-section>
+                </q-card>
+            </q-page>
+        </q-page-container>
+    </q-layout>
 </template>
 
 <script lang="ts">
+import authURI from 'src/authURI';
 import { ref, defineComponent } from 'vue';
+import AuthButton from '../components/AuthButton/AuthButton.vue';
 
 const username = ref('');
 const password = ref('');
 
 const login = () => {
-    // Add login logic here, e.g., sending login request to the server
     console.log('Logging in...');
 };
 
@@ -36,7 +37,11 @@ export default defineComponent({
             username,
             password,
             login,
+            authURI,
         };
+    },
+    components: {
+        AuthButton,
     },
 });
 </script>

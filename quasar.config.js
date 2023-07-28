@@ -62,13 +62,13 @@ module.exports = configure((ctx) => ({
       node: 'node16',
     },
     env: {
-      API: ctx.dev ? 'http://localhost:3001' : 'http://localhost:3001',
+      API: process.env.API,
       CLIENT_ID: process.env.CLIENT_ID,
       AUTH_SCOPE: process.env.AUTH_SCOPE,
       AUTH_URI: process.env.AUTH_URI,
     },
 
-    vueRouterMode: 'hash', // available values: 'hash', 'history'
+    vueRouterMode: 'history', // available values: 'hash', 'history'
     // vueRouterBase,
     // vueDevtools,
     // vueOptionsAPI: false,

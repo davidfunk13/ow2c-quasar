@@ -1,5 +1,5 @@
 <template>
-    <q-btn dense flat :href="String(authURI)" round icon="login" label="Login" />
+    <q-btn color="primary" :href="String(authURI)" icon="login" label="Login" />
 </template>
 
 <script lang="ts">
