@@ -1,22 +1,20 @@
-<template>
-  <div class="q-pa-md">
-    <q-btn color="primary" @click="showLoading" label="Show Loading" />
-  </div>
-</template>
-
 <script>
-import { useQuasar, QSpinnerGears } from 'quasar';
-import { onBeforeUnmount, onMounted } from 'vue';
-import { api } from 'boot/axios';
+import {
+  useQuasar, QSpinnerGears, QSpinnerCube,
+} from 'quasar';
+import { computed, onBeforeUnmount, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
+import { useAuthStore } from '../stores/auth-store';
 
 export default {
   name: 'AuthorizePage',
   setup() {
+    const authStore = useAuthStore();
+
     const router = useRouter();
     const $q = useQuasar();
     let timer;
-
+    // cleanup the timer and loading plugin
     onBeforeUnmount(() => {
       if (timer !== void 0) {
         clearTimeout(timer);
@@ -26,58 +24,44 @@ export default {
 
     onMounted(async () => {
       // pull code param from url
-
       const code = new URLSearchParams(window.location.search).get('code');
 
+      // if there's not a code
       if (!code) {
         $q.loading.show({
-          spinner: QSpinnerGears,
+          spinner: QSpinnerCube,
           spinnerColor: 'red',
           messageColor: 'black',
-          backgroundColor: 'yellow',
-          message: 'Updated message',
+          backgroundColor: 'red',
+          message: 'Login Failed',
         });
 
         timer = setTimeout(() => {
-          $q.loading.hide();
-          timer = void 0;
-
           router.push('/');
         }, 2000);
+        return;
       }
-
-      // call api with code
-      // abstrict this into a store.action
-      api.post(`/login?code=${code}`).then((res) => {
-        console.log(res);
-      });
 
       $q.loading.show({
         message: 'Authorizing...',
       });
 
-      // const res = await req;
-      // consol/e.log(res);
-    });
-    return {
-      showLoading() {
-        // we're gonna turn this into a redirect on success or failure
-        timer = setTimeout(() => {
-          $q.loading.show({
-            spinner: QSpinnerGears,
-            spinnerColor: 'red',
-            messageColor: 'black',
-            backgroundColor: 'yellow',
-            message: 'Updated message',
-          });
+      const isAuthenticated = await computed(authStore.login(code));
 
-          timer = setTimeout(() => {
-            $q.loading.hide();
-            timer = void 0;
-          }, 2000);
+      if (isAuthenticated) {
+        $q.loading.show({
+          spinner: QSpinnerGears,
+          spinnerColor: 'green',
+          messageColor: 'black',
+          backgroundColor: 'green',
+          message: 'Authorized Successfully',
+        });
+
+        timer = setTimeout(() => {
+          router.push('/dashboard');
         }, 2000);
-      },
-    };
+      }
+    });
   },
 };
 </script>

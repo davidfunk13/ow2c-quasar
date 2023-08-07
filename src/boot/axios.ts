@@ -1,5 +1,6 @@
 import { boot } from 'quasar/wrappers';
 import axios, { AxiosInstance } from 'axios';
+import { useRouter } from 'vue-router';
 
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
@@ -15,7 +16,17 @@ declare module '@vue/runtime-core' {
 // "export default () => {}" function below (which runs individually
 // for each client)
 const api = axios.create({ baseURL: process.env.API });
+api.interceptors.response.use(undefined, (error) => {
+  const statusConditional = error.response.status === 500
+    || error.response.status === 401
+    || error.response.status === 403
+    || error.response.status === 404
+    || error.response.status === 400;
 
+  if (statusConditional) {
+    window.location.href = '/';
+  }
+});
 export default boot(({ app }) => {
   // for use inside Vue files (Options API) through this.$axios and this.$api
 

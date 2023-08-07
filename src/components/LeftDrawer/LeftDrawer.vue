@@ -1,27 +1,27 @@
 <template>
-    <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered>
-        <div class="q-pa-md" style="max-width: 350px">
-            <q-list bordered separator>
-                <q-item clickable v-ripple>
-                    <q-item-section>Single line item</q-item-section>
-                </q-item>
+  <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered>
+    <div class="q-pa-md" style="max-width: 350px">
+      <q-list bordered separator>
+        <q-item clickable v-ripple>
+          <q-item-section>Single line item</q-item-section>
+        </q-item>
 
-                <q-item clickable v-ripple>
-                    <q-item-section>
-                        <q-item-label>Item with caption</q-item-label>
-                        <q-item-label caption>Caption</q-item-label>
-                    </q-item-section>
-                </q-item>
+        <q-item clickable v-ripple>
+          <q-item-section>
+            <q-item-label>Item with caption</q-item-label>
+            <q-item-label caption>Caption</q-item-label>
+          </q-item-section>
+        </q-item>
 
-                <q-item clickable v-ripple>
-                    <q-item-section>
-                        <q-item-label overline>OVERLINE</q-item-label>
-                        <q-item-label>Item with caption</q-item-label>
-                    </q-item-section>
-                </q-item>
-            </q-list>
-        </div>
-    </q-drawer>
+        <q-item clickable v-ripple>
+          <q-item-section>
+            <q-item-label overline>OVERLINE</q-item-label>
+            <q-item-label>Item with caption</q-item-label>
+          </q-item-section>
+        </q-item>
+      </q-list>
+    </div>
+  </q-drawer>
 </template>
 
 <script lang="ts">
@@ -31,14 +31,14 @@ import { storeToRefs } from 'pinia';
 
 const uiStore = useUIStore();
 const { leftDrawerOpen } = storeToRefs(uiStore);
-console.log(process.env);
+
 export default defineComponent({
-    name: 'LeftDrawer',
-    setup() {
-        return {
-            leftDrawerOpen,
-        };
-    },
+  name: 'LeftDrawer',
+  setup() {
+    return {
+      leftDrawerOpen,
+    };
+  },
 });
 
 </script>

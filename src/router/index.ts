@@ -6,8 +6,9 @@ import {
   createWebHistory,
 } from 'vue-router';
 
+import { useAuthStore } from 'src/stores/auth-store';
+import { computed } from 'vue';
 import routes from './routes';
-
 /*
  * If not building with SSR mode, you can
  * directly export the Router instantiation;
@@ -30,6 +31,21 @@ export default route((/* { store, ssrContext } */) => {
     // quasar.conf.js -> build -> vueRouterMode
     // quasar.conf.js -> build -> publicPath
     history: createHistory(process.env.VUE_ROUTER_BASE),
+  });
+
+  Router.beforeEach((to, from, next) => {
+    const authStore = useAuthStore();
+
+    // Check for the meta field in the route
+    if (to.matched.some((record) => record.meta.requiresAuth)) {
+      if (!authStore.isAuthenticated) {
+        next({ path: '/' }); // Redirect to home if not authenticated
+      } else {
+        next(); // Continue if authenticated
+      }
+    } else {
+      next(); // Always call next() at the end
+    }
   });
 
   return Router;
